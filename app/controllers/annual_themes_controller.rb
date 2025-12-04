@@ -1,12 +1,26 @@
 class AnnualThemesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_annual_theme, only: %i[ show edit update destroy ]
+  before_action :set_annual_theme, only: %i[ show edit update destroy chart ]
 
   def index
     @annual_themes = current_user.annual_themes.order(year: :desc)
   end
 
   def show
+  end
+
+  def chart
+    @center_item = @annual_theme.mandala_items.find_by(is_center: true, parent_id: nil)
+    # Ensure all 8 surrounding items exist
+    (0..8).each do |position|
+      next if position == 4 # Center
+      @annual_theme.mandala_items.find_or_create_by!(
+        position: position,
+        parent: @center_item,
+        is_center: false
+      )
+    end
+    @mandala_items = @annual_theme.mandala_items.where(parent: @center_item).or(MandalaItem.where(id: @center_item.id)).order(:position)
   end
 
   def new
