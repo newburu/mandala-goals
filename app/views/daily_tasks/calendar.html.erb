@@ -1,0 +1,77 @@
+<div class="mx-auto w-full max-w-4xl px-4 py-8">
+  <div class="mb-8 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-900">Daily Goals Calendar</h1>
+    <%= link_to "List View", daily_tasks_path, class: "rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
+  </div>
+
+  <div class="bg-white shadow sm:rounded-lg p-6">
+    <%= month_calendar(events: @daily_tasks, attribute: :date) do |date, tasks| %>
+      <div class="h-full flex flex-col justify-between">
+        <div class="text-sm font-semibold text-gray-900">
+          <%= link_to date.day, daily_tasks_path(date: date), class: "hover:underline" %>
+        </div>
+
+        <% if tasks.any? %>
+          <div class="mt-1">
+            <% completed_count = tasks.count(&:completed?) %>
+            <% total_count = tasks.size %>
+
+            <div class="flex items-center space-x-1">
+              <% if completed_count == total_count %>
+                 <span class="inline-flex items-center rounded-full bg-green-50 px-1.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">All Done</span>
+              <% elsif completed_count > 0 %>
+                 <span class="inline-flex items-center rounded-full bg-yellow-50 px-1.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20"><%= completed_count %>/<%= total_count %></span>
+              <% else %>
+                 <span class="inline-flex items-center rounded-full bg-gray-50 px-1.5 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"><%= total_count %> tasks</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* Basic Simple Calendar styling override */
+  .simple-calendar {
+    width: 100%;
+  }
+
+  .simple-calendar table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .simple-calendar th {
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .simple-calendar td {
+    border: 1px solid #e5e7eb;
+    height: 100px;
+    vertical-align: top;
+    padding: 0.5rem;
+  }
+
+  .simple-calendar .prev-month,
+  .simple-calendar .next-month {
+    background-color: #f9fafb;
+    color: #9ca3af;
+  }
+
+  .calendar-heading {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .calendar-heading a {
+    text-decoration: none;
+    margin: 0 1rem;
+    color: #4b5563;
+  }
+</style>
