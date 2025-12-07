@@ -70,3 +70,5 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem "holidays", "~> 8.8"
