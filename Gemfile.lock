@@ -115,6 +115,9 @@ GEM
       responders
       warden (~> 1.2.3)
     dotenv (3.2.0)
+    dotenv-rails (3.2.0)
+      dotenv (= 3.2.0)
+      railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
     erb (6.0.0)
@@ -229,6 +232,9 @@ GEM
       omniauth-oauth2 (~> 1.8)
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
+    omniauth-rails_csrf_protection (1.0.2)
+      actionpack (>= 4.2)
       omniauth (~> 2.0)
     omniauth-twitter2 (1.0.0)
       omniauth
@@ -432,12 +438,14 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  dotenv-rails
   holidays (~> 8.8)
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
   omniauth-google-oauth2
+  omniauth-rails_csrf_protection (~> 1.0)
   omniauth-twitter2
   pg (~> 1.1)
   propshaft

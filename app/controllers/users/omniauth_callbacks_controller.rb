@@ -24,7 +24,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
     else
       session["devise.omniauth_data"] = request.env["omniauth.auth"].except("extra")
-      redirect_to new_user_registration_url
+      # If save fails even with dummy email, show errors
+      reason = @user.errors.full_messages.to_sentence
+      redirect_to new_user_session_url, alert: I18n.t("devise.omniauth_callbacks.failure", kind: kind.capitalize, reason: reason)
     end
   end
 end
