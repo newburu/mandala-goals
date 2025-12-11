@@ -181,3 +181,25 @@ en:
         hobby:
           title: "Personal Hobbies"
           description: "Support skill acquisition that requires daily practice, such as language learning or musical instruments."
+      features:
+        title: "Key Features"
+        chart:
+          title: "Intuitive Mandala Chart"
+          description: "Easily set goals with simple click operations."
+        reflection:
+          title: "Habit Support"
+          description: "Daily reflections help you stay consistent."
+        design:
+          title: "Refined Design"
+          description: "A simple UI helps you focus on your goals."
+      steps:
+        title: "Start in 3 Steps"
+        step1:
+          title: "Set Annual Theme"
+          description: "Choose a Kanji that represents your year."
+        step2:
+          title: "Create Chart"
+          description: "Break down goals into 8 areas."
+        step3:
+          title: "Reflect Daily"
+          description: "Build up small wins and feel your growth."

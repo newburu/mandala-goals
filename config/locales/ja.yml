@@ -209,3 +209,25 @@ ja:
         hobby:
           title: "趣味・自己実現"
           description: "語学学習や楽器練習など、日々の積み重ねが必要なスキル習得をサポートします。"
+      features:
+        title: "主な機能"
+        chart:
+          title: "直感的なマンダラチャート"
+          description: "クリック操作で簡単に目標設定できます。"
+        reflection:
+          title: "習慣化サポート"
+          description: "日々の振り返り機能で継続を支援します。"
+        design:
+          title: "洗練されたデザイン"
+          description: "目標に集中できるシンプルなUIを提供します。"
+      steps:
+        title: "3ステップで簡単スタート"
+        step1:
+          title: "年間テーマを決める"
+          description: "今年の漢字一文字を設定しましょう。"
+        step2:
+          title: "チャートを作る"
+          description: "8つの分野に目標を分解して登録します。"
+        step3:
+          title: "日々振り返る"
+          description: "小さな達成を積み重ねて成長を実感します。"
