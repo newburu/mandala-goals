@@ -196,4 +196,16 @@ ja:
     placeholder: "目標..."
     update:
       success: "更新しました。"
-    authorization_error: "権限がありません。"
+  static_pages:
+    home:
+      use_cases:
+        title: "こんな使い方ができます"
+        career:
+          title: "キャリア・スキルアップ"
+          description: "資格取得や昇進など、大きな目標を具体的な行動計画に落とし込みます。"
+        health:
+          title: "健康・ライフスタイル"
+          description: "運動、食事、睡眠など、多角的なアプローチで理想の自分を目指します。"
+        hobby:
+          title: "趣味・自己実現"
+          description: "語学学習や楽器練習など、日々の積み重ねが必要なスキル習得をサポートします。"
