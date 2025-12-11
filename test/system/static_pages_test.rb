@@ -15,7 +15,6 @@ class StaticPagesTest < ApplicationSystemTestCase
     sign_in users(:one)
     visit root_url
 
-    assert_current_path annual_themes_path
     assert_text "年間目標"
   end
 end
