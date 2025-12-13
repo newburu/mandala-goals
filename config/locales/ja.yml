@@ -3,6 +3,7 @@ ja:
     sign_out: "サインアウト"
     sign_in: "サインイン"
     save: "保存"
+    edit: "編集"
     confirm_destroy: "本当に削除しますか？"
   date:
     formats:
@@ -48,6 +49,7 @@ ja:
     chart:
       title: "マンダラチャート: %{year}"
       back: "← 年間テーマに戻る"
+      back_to_center: "全体に戻る"
       error: "エラー"
       instruction: "セルをクリックして目標を編集してください。中心はメインの年間テーマです。"
     destroy:
@@ -123,6 +125,12 @@ ja:
       no_goal: "目標未設定"
       focus: "フォーカス"
       view_tasks: "タスクを表示"
+    chart:
+      title: "%{year}年のマンダラチャート"
+      instruction: "セルをクリックして編集できます"
+      error: "エラー"
+      back: "年間テーマに戻る"
+      back_to_center: "全体に戻る"
     new:
       title: "%{year}年の月間目標作成"
       back: "詳細に戻る"

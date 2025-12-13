@@ -1,3 +1,26 @@
-<%= turbo_stream.replace @mandala_item do %>
-  <%= render @mandala_item %>
+<%# Update all possible locations where this item might be displayed %>
+
+<%# 1. PC Views (Grids 0-8) %>
+<% (0..8).each do |grid_pos| %>
+  <%= turbo_stream.replace dom_id(@mandala_item, "grid_#{grid_pos}") do %>
+    <%= render "mandala_items/mandala_item", mandala_item: @mandala_item, is_subgrid: true, grid_position: grid_pos %>
+  <% end %>
+<% end %>
+
+<%# 2. Mobile Center View %>
+<%= turbo_stream.replace dom_id(@mandala_item, "grid_mobile_center") do %>
+  <%# Mobile Center Grid has special click handling %>
+  <%
+    click_option_proc = ->(pos) { { data: { action: "click->mandala#showSubgrid", position: pos } } }
+    # Only disable click if it is NOT the center item itself (Wait, center item in mobile view is just display?)
+    # In chart.html.erb, we pass disable_item_click: true for center view.
+  %>
+  <%= render "mandala_items/mandala_item", mandala_item: @mandala_item, is_subgrid: false, grid_position: "mobile_center", disable_click: true %>
+<% end %>
+
+<%# 3. Mobile Sub Grids (0-8) %>
+<% (0..8).each do |grid_pos| %>
+  <%= turbo_stream.replace dom_id(@mandala_item, "grid_mobile_subgrid_#{grid_pos}") do %>
+    <%= render "mandala_items/mandala_item", mandala_item: @mandala_item, is_subgrid: true, grid_position: "mobile_subgrid_#{grid_pos}" %>
+  <% end %>
 <% end %>
