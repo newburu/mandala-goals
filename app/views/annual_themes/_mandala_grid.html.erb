@@ -1,7 +1,7 @@
-<%# locals: (items: Array<MandalaItem>, is_subgrid: boolean) %>
+<%# locals: (items:, is_subgrid:, center_item: nil) %>
 <div class="grid grid-cols-3 grid-rows-3 gap-1 h-full w-full bg-gray-300">
   <% (0..8).each do |position| %>
-    <% item = items.find { |i| i.position == position } %>
+    <% item = (position == 4 && center_item) ? center_item : items.find { |i| i.position == position } %>
     <div class="bg-white overflow-hidden relative <%= 'bg-indigo-50' if item&.is_center? && !is_subgrid %>">
       <% if item %>
         <%= render 'mandala_items/mandala_item', mandala_item: item, is_subgrid: is_subgrid %>

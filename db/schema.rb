@@ -17,11 +17,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_13_062206) do
   create_table "annual_themes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "kanji"
+    t.integer "level", default: 2, null: false
     t.text "meaning"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "year"
-    t.integer "level", default: 2, null: false
     t.index ["user_id"], name: "index_annual_themes_on_user_id"
   end
 
