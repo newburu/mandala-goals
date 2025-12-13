@@ -37,19 +37,17 @@
         <tr class="divide-x divide-gray-200">
           <% week.each do |day| %>
             <% 
-              is_holiday = Holidays.on(day, :jp).any?
               cell_classes = calendar.td_classes_for(day)
               base_classes = "h-32 p-2 align-top transition-colors duration-200 ease-in-out relative group"
               
-              if day.sunday? || is_holiday
+              text_class = date_text_color_class(day)
+              
+              if text_class.include?("text-red")
                 bg_class = "bg-red-50/30 hover:bg-red-50/60"
-                text_class = "text-red-900"
-              elsif day.saturday?
+              elsif text_class.include?("text-blue")
                 bg_class = "bg-blue-50/30 hover:bg-blue-50/60"
-                text_class = "text-blue-900"
               else
                 bg_class = "hover:bg-gray-50"
-                text_class = ""
               end
             %>
             <%= content_tag :td, class: [cell_classes, base_classes, bg_class, text_class].join(" ") do %>
