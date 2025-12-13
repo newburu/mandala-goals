@@ -3,6 +3,7 @@ en:
     sign_out: "Sign out"
     sign_in: "Sign in"
     save: "Save"
+    edit: "Edit"
     confirm_destroy: "Are you sure?"
   date:
     formats:
@@ -35,6 +36,10 @@ en:
       kanji_placeholder: "Challenging"
       kanji_hint: "Choose a single Kanji that represents your theme for the year."
       meaning_placeholder: "Why did you choose this Kanji? What do you want to achieve?"
+      level:
+        label: "Chart Level"
+        2_level: "2-level"
+        3_level: "3-level"
       error_heading: "%{count} errors prohibited this annual theme from being saved:"
     new:
       title: "Set Annual Theme"
@@ -44,6 +49,8 @@ en:
     chart:
       title: "Mandala Chart: %{year}"
       back: "← Back to Theme"
+      back_to_center: "Back to Center"
+      back_to_center: "Back to Center"
       error: "Error"
       instruction: "Click on any cell to edit your goals. The center is your main Annual Theme."
     destroy:

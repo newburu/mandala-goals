@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_08_013515) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_13_062206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "annual_themes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "kanji"
+    t.integer "level", default: 2, null: false
     t.text "meaning"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false

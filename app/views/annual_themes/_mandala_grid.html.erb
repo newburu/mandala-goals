@@ -1,0 +1,20 @@
+<% center_item ||= nil %>
+<% item_html_options_proc ||= nil %>
+<% disable_item_click ||= false %>
+<% grid_position ||= nil %>
+<div class="grid grid-cols-3 grid-rows-3 gap-1 h-full w-full bg-gray-300">
+  <% (0..8).each do |position| %>
+    <% item = (position == 4 && center_item) ? center_item : items.find { |i| i.position == position } %>
+    <% 
+      html_options = { class: "h-full w-full bg-white overflow-hidden relative cursor-pointer #{'bg-indigo-50' if item&.is_center? && !is_subgrid}" }
+      html_options.merge!(item_html_options_proc.call(position)) if item_html_options_proc
+    %>
+    <%= content_tag(:div, html_options) do %>
+      <% if item %>
+        <%= render 'mandala_items/mandala_item', mandala_item: item, is_subgrid: is_subgrid, disable_click: disable_item_click, grid_position: grid_position %>
+      <% else %>
+        <div class="h-full flex items-center justify-center text-red-500 text-xs"><%= t('annual_themes.chart.error') %></div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

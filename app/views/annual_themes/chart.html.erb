@@ -1,4 +1,4 @@
-<div class="mx-auto w-full max-w-4xl px-4 py-8">
+<div class="mx-auto w-full max-w-6xl px-4 py-8">
   <div class="mb-8 flex justify-between items-center">
     <div>
       <%= link_to t('annual_themes.chart.back'), annual_theme_path(@annual_theme), class: "text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700" %>
@@ -6,20 +6,65 @@
     </div>
   </div>
 
-  <div class="aspect-square max-w-2xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
-    <div class="grid grid-cols-3 grid-rows-3 gap-1 h-full bg-gray-300">
-      <% (0..8).each do |position| %>
-        <% item = @mandala_items.find { |i| i.position == position } %>
-        <div class="bg-white overflow-hidden relative <%= 'bg-indigo-50' if item&.is_center? %>">
-          <% if item %>
-            <%= render item %>
-          <% else %>
-             <div class="h-full flex items-center justify-center text-red-500"><%= t('annual_themes.chart.error') %></div>
+  <% if @annual_theme.level == 3 %>
+    <div data-controller="mandala">
+      <!-- Desktop View -->
+      <div class="hidden md:block aspect-square max-w-5xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-3 grid-rows-3 gap-1 h-full bg-gray-400">
+          <% (0..8).each do |position| %>
+            <% parent_item = @mandala_items.find { |i| i.position == position } || @center_item %>
+            <%
+              items_for_grid = if position == 4
+                                 @mandala_items.to_a.prepend(@center_item).uniq
+                               else
+                                 parent_item.children.to_a
+                               end
+            %>
+            <div class="bg-gray-200 border border-gray-400">
+              <%= render 'mandala_grid', items: items_for_grid, is_subgrid: true, center_item: parent_item, grid_position: position %>
+            </div>
           <% end %>
         </div>
-      <% end %>
+      </div>
+
+      <!-- Mobile View -->
+      <div class="md:hidden">
+        <!-- Center Grid as Menu -->
+        <div data-mandala-target="center" class="aspect-square w-full bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+           <%
+             center_grid_items = @mandala_items.to_a.prepend(@center_item).uniq
+             click_option_proc = ->(pos) { { data: { action: "click->mandala#showSubgrid", position: pos } } }
+           %>
+           <%= render 'mandala_grid', items: center_grid_items, is_subgrid: false, center_item: @center_item, item_html_options_proc: click_option_proc, disable_item_click: true, grid_position: "mobile_center" %>
+        </div>
+
+        <!-- Sub Grids (Hidden by default) -->
+        <% (0..8).each do |position| %>
+          <div data-mandala-target="subgrid" data-position="<%= position %>" class="hidden">
+            <button data-action="click->mandala#showCenter" class="mb-4 flex items-center text-sm font-semibold text-gray-700 hover:text-gray-900">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+              <%= t('annual_themes.chart.back_to_center') %>
+            </button>
+            <div class="aspect-square w-full bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+              <% 
+                parent_item = @mandala_items.find { |i| i.position == position } || @center_item
+                items_for_grid = if position == 4
+                                   @mandala_items.to_a.prepend(@center_item).uniq
+                                 else
+                                   parent_item.children.to_a
+                                 end
+              %>
+               <%= render 'mandala_grid', items: items_for_grid, is_subgrid: true, center_item: parent_item, grid_position: "mobile_subgrid_#{position}" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="aspect-square max-w-2xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+        <%= render 'mandala_grid', items: @mandala_items, is_subgrid: false %>
+    </div>
+  <% end %>
 
   <div class="mt-8 text-center text-gray-500 text-sm">
     <p><%= t('annual_themes.chart.instruction') %></p>

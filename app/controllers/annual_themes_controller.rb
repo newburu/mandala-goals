@@ -10,17 +10,34 @@ class AnnualThemesController < ApplicationController
   end
 
   def chart
-    @center_item = @annual_theme.mandala_items.find_by(is_center: true, parent_id: nil)
-    # Ensure all 8 surrounding items exist
-    (0..8).each do |position|
-      next if position == 4 # Center
-      @annual_theme.mandala_items.find_or_create_by!(
-        position: position,
-        parent: @center_item,
-        is_center: false
-      )
+    if @annual_theme.level == 3
+      @center_item = @annual_theme.mandala_items.includes(children: :children).find_by(is_center: true, parent_id: nil)
+      # Ensure all 8 surrounding items exist for the center item
+      child_items = (0..8).map do |position|
+        next if position == 4 # Center
+        @annual_theme.mandala_items.find_or_create_by!(position: position, parent: @center_item, is_center: false)
+      end.compact
+
+      # Ensure all 8 children exist for each of the child items
+      child_items.each do |child|
+        (0..8).each do |position|
+          next if position == 4 # Center
+          @annual_theme.mandala_items.find_or_create_by!(position: position, parent: child, is_center: false)
+        end
+      end
+
+      # Eager load all items again to get the newly created ones
+      @center_item = @annual_theme.mandala_items.includes(children: :children).find(@center_item.id)
+      @mandala_items = @center_item.children.order(:position)
+    else # Level 2
+      @center_item = @annual_theme.mandala_items.find_by(is_center: true, parent_id: nil)
+      # Ensure all 8 surrounding items exist
+      (0..8).each do |position|
+        next if position == 4 # Center
+        @annual_theme.mandala_items.find_or_create_by!(position: position, parent: @center_item, is_center: false)
+      end
+      @mandala_items = @annual_theme.mandala_items.where(parent: @center_item).or(MandalaItem.where(id: @center_item.id)).order(:position)
     end
-    @mandala_items = @annual_theme.mandala_items.where(parent: @center_item).or(MandalaItem.where(id: @center_item.id)).order(:position)
   end
 
   def new
@@ -60,6 +77,6 @@ class AnnualThemesController < ApplicationController
     end
 
     def annual_theme_params
-      params.require(:annual_theme).permit(:year, :kanji, :meaning)
+      params.require(:annual_theme).permit(:year, :kanji, :meaning, :level)
     end
 end

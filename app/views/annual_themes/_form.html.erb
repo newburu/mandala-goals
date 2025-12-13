@@ -27,6 +27,20 @@
     <%= form.text_area :meaning, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full focus:ring-2 focus:ring-indigo-600 focus:border-transparent", placeholder: t('annual_themes.form.meaning_placeholder') %>
   </div>
 
+  <div class="my-5">
+    <span class="block text-sm font-medium leading-6 text-gray-900"><%= t('annual_themes.form.level.label') %></span>
+    <div class="mt-2 flex items-center gap-x-6">
+      <div class="flex items-center gap-x-2">
+        <%= form.radio_button :level, 2, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+        <%= form.label :level_2, t('annual_themes.form.level.2_level'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+      </div>
+      <div class="flex items-center gap-x-2">
+        <%= form.radio_button :level, 3, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" %>
+        <%= form.label :level_3, t('annual_themes.form.level.3_level'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+      </div>
+    </div>
+  </div>
+
   <div class="inline">
     <%= form.submit t('common.save'), class: "rounded-lg py-3 px-5 bg-indigo-600 text-white inline-block font-medium cursor-pointer hover:bg-indigo-500" %>
   </div>

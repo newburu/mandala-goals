@@ -3,6 +3,7 @@ ja:
     sign_out: "サインアウト"
     sign_in: "サインイン"
     save: "保存"
+    edit: "編集"
     confirm_destroy: "本当に削除しますか？"
   date:
     formats:
@@ -35,6 +36,10 @@ ja:
       kanji_placeholder: "挑"
       kanji_hint: "今年1年を象徴する漢字1文字を選んでください。"
       meaning_placeholder: "なぜこの漢字を選びましたか？何を達成したいですか？"
+      level:
+        label: "チャートの階層"
+        2_level: "2段"
+        3_level: "3段"
       error_heading: "%{count}件のエラーが発生したため保存できませんでした:"
     new:
       title: "年間テーマ設定"
@@ -44,6 +49,7 @@ ja:
     chart:
       title: "マンダラチャート: %{year}"
       back: "← 年間テーマに戻る"
+      back_to_center: "全体に戻る"
       error: "エラー"
       instruction: "セルをクリックして目標を編集してください。中心はメインの年間テーマです。"
     destroy:
@@ -119,6 +125,12 @@ ja:
       no_goal: "目標未設定"
       focus: "フォーカス"
       view_tasks: "タスクを表示"
+    chart:
+      title: "%{year}年のマンダラチャート"
+      instruction: "セルをクリックして編集できます"
+      error: "エラー"
+      back: "年間テーマに戻る"
+      back_to_center: "全体に戻る"
     new:
       title: "%{year}年の月間目標作成"
       back: "詳細に戻る"

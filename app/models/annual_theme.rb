@@ -5,6 +5,7 @@ class AnnualTheme < ApplicationRecord
 
   validates :year, presence: true, uniqueness: { scope: :user_id }
   validates :kanji, presence: true, length: { maximum: 1 }
+  validates :level, presence: true, inclusion: { in: [2, 3] }
 
   after_create :create_center_mandala_item
 
