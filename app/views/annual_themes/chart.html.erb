@@ -1,4 +1,4 @@
-<div class="mx-auto w-full max-w-4xl px-4 py-8">
+<div class="mx-auto w-full max-w-6xl px-4 py-8">
   <div class="mb-8 flex justify-between items-center">
     <div>
       <%= link_to t('annual_themes.chart.back'), annual_theme_path(@annual_theme), class: "text-sm font-semibold leading-6 text-gray-900 hover:text-gray-700" %>
@@ -6,20 +6,31 @@
     </div>
   </div>
 
-  <div class="aspect-square max-w-2xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
-    <div class="grid grid-cols-3 grid-rows-3 gap-1 h-full bg-gray-300">
-      <% (0..8).each do |position| %>
-        <% item = @mandala_items.find { |i| i.position == position } %>
-        <div class="bg-white overflow-hidden relative <%= 'bg-indigo-50' if item&.is_center? %>">
-          <% if item %>
-            <%= render item %>
-          <% else %>
-             <div class="h-full flex items-center justify-center text-red-500"><%= t('annual_themes.chart.error') %></div>
-          <% end %>
-        </div>
-      <% end %>
+  <% if @annual_theme.level == 3 %>
+    <div class="aspect-square max-w-5xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+      <div class="grid grid-cols-3 grid-rows-3 gap-1 h-full bg-gray-400">
+        <% (0..8).each do |position| %>
+          <% parent_item = @mandala_items.find { |i| i.position == position } || @center_item %>
+          <%
+            # For the center grid, we use the main items.
+            # For outer grids, we use the children of the corresponding item.
+            items_for_grid = if position == 4
+                               @mandala_items.to_a.prepend(@center_item).uniq
+                             else
+                               parent_item.children.to_a
+                             end
+          %>
+          <div class="bg-gray-200 border border-gray-400">
+            <%= render 'mandala_grid', items: items_for_grid, is_subgrid: true %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="aspect-square max-w-2xl mx-auto bg-gray-200 border-4 border-gray-800 rounded-lg overflow-hidden shadow-2xl">
+        <%= render 'mandala_grid', items: @mandala_items, is_subgrid: false %>
+    </div>
+  <% end %>
 
   <div class="mt-8 text-center text-gray-500 text-sm">
     <p><%= t('annual_themes.chart.instruction') %></p>

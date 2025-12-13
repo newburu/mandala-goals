@@ -35,6 +35,10 @@ en:
       kanji_placeholder: "Challenging"
       kanji_hint: "Choose a single Kanji that represents your theme for the year."
       meaning_placeholder: "Why did you choose this Kanji? What do you want to achieve?"
+      level:
+        label: "Chart Level"
+        2_level: "2-level"
+        3_level: "3-level"
       error_heading: "%{count} errors prohibited this annual theme from being saved:"
     new:
       title: "Set Annual Theme"

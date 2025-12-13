@@ -35,6 +35,10 @@ ja:
       kanji_placeholder: "挑"
       kanji_hint: "今年1年を象徴する漢字1文字を選んでください。"
       meaning_placeholder: "なぜこの漢字を選びましたか？何を達成したいですか？"
+      level:
+        label: "チャートの階層"
+        2_level: "2段"
+        3_level: "3段"
       error_heading: "%{count}件のエラーが発生したため保存できませんでした:"
     new:
       title: "年間テーマ設定"
