@@ -1,7 +1,7 @@
 <div id="<%= dom_id reflection %>">
   <p class="my-5">
     <strong class="block font-medium mb-1"><%= Reflection.human_attribute_name(:date) %>:</strong>
-    <%= reflection.date %>
+    <%= I18n.l(reflection.date) %>
   </p>
 
   <p class="my-5">
