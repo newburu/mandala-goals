@@ -1,11 +1,10 @@
 class GuestSessionsController < ApplicationController
   def create
-    @user = User.create!(
-      name: "Guest User",
-      email: "guest_#{Time.now.to_i}#{rand(1000)}@example.com",
-      password: Devise.friendly_token[0, 20],
-      guest: true
-    )
+    @user = User.find_or_create_by!(email: "guest@example.com") do |user|
+      user.name = "Guest User"
+      user.password = Devise.friendly_token[0, 20]
+      user.guest = true
+    end
     sign_in(@user)
     session[:guest_user_id] = @user.id
     redirect_to annual_themes_path, notice: "ゲストユーザーとしてログインしました。"
