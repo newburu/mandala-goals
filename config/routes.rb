@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users, skip: [ :omniauth_callbacks, :registrations, :passwords ]
 
+    post "guest_sign_in", to: "guest_sessions#create"
+
     resources :annual_themes do
       member do
         get :chart
